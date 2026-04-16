@@ -17,3 +17,15 @@ library(tidyr)
 
 ```
 
+```{r}
+# descomprimimos el zip
+unzip("2025-26 Tractament de les dades Gr.A-T (36423)-Tarea Intermediate R(Datacamp)-3281647.zip",
+      exdir = "entregas")
+
+# buscamos los puntos.txt
+puntos <- list.files("entregas", pattern = "puntos\\.txt", recursive = TRUE, full.names = TRUE) #Con el recursive podemos buscar dentro de todas las carpetas y subrcarpetas
+
+# Ver cuántos encontramos
+length(puntos)
+```
+
