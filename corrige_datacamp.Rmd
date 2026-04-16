@@ -1,0 +1,19 @@
+---
+title: "corrige_datacamp"
+author: "Miriam Diaz"
+date: "2026-04-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+```
+
