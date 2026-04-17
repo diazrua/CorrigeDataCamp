@@ -28,4 +28,12 @@ puntos <- list.files("entregas", pattern = "puntos\\.txt", recursive = TRUE, ful
 # Ver cuántos encontramos
 length(puntos)
 ```
+```{r}
+carpetas <- dirname(puntos)
+nombres_carpeta <- basename(carpetas)
+
+# extraemos la parte antes de la coma (los apellidos)
+apellidos <- sapply(strsplit(nombres_carpeta, ","), function(x) x[1])
+head(apellidos)
+```
 
