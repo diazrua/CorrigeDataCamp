@@ -36,4 +36,11 @@ nombres_carpeta <- basename(carpetas)
 apellidos <- sapply(strsplit(nombres_carpeta, ","), function(x) x[1])
 head(apellidos)
 ```
+```{r}
+puntuaciones <- sapply(puntos, function(x) {
+  as.numeric(readLines(x, n = 1))
+})
+
+head(puntuaciones)
+```
 
