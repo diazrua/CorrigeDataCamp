@@ -18,6 +18,35 @@ library(tidyr)
 ```
 
 ```{r}
+# descomprimimos el zip
+unzip("2025-26 Tractament de les dades Gr.A-T (36423)-Tarea Intermediate R(Datacamp)-3281647.zip",
+      exdir = "entregas")
+
+# buscamos los puntos.txt
+puntos <- list.files("entregas", pattern = "puntos\\.txt", recursive = TRUE, full.names = TRUE) #Con el recursive podemos buscar dentro de todas las carpetas y subrcarpetas
+
+# Ver cuántos encontramos
+length(puntos)
+```
+
+```{r}
+carpetas <- dirname(puntos)
+nombres_carpeta <- basename(carpetas)
+
+# extraemos la parte antes de la coma (los apellidos)
+apellidos <- sapply(strsplit(nombres_carpeta, ","), function(x) x[1])
+head(apellidos)
+```
+
+```{r}
+puntuaciones <- sapply(puntos, function(x) {
+  as.numeric(readLines(x, n = 1))
+})
+
+head(puntuaciones)
+```
+
+```{r}
 # ¿todas las entregas usaron como nombre del fichero de puntos el indicado; puntos.txt ? ¿cuántas variantes hay ?. 
 nombres_archivos <- basename(puntos)
 table(nombres_archivos)
@@ -29,8 +58,23 @@ certificados <- list.files("entregas", pattern = "certificate\\.pdf", recursive 
 length(puntos)
 length(certificados)
 
-# No, hay 5 personas que entregaron los puntos pero no el certificado de manera correcta
+# No, hay 5 personas que entregaron los puntos pero no los certificados de forma correcta
+```
 
+```{r}
+evalua_df <- data.frame(
+  apellidos = apellidos,
+  puntos = puntuaciones,
+  NomFile = basename(puntos),
+  Puntos = sapply(puntos, function(x) readLines(x, n = 1)),
+  stringsAsFactors = FALSE
+)
 
+evalua_df <- evalua_df[order(evalua_df$apellidos), ]
+
+head(evalua_df)
+
+library(writexl)
+write_xlsx(evalua_df, "NotasRIntermedio.xlsx")
 ```
 
