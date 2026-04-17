@@ -50,7 +50,7 @@ head(puntuaciones)
 # ¿todas las entregas usaron como nombre del fichero de puntos el indicado; puntos.txt ? ¿cuántas variantes hay ?. 
 nombres_archivos <- basename(puntos)
 table(nombres_archivos)
-#Sí, hay 45 variantes
+#Sí, no hay variantes
 
 # ¿Todas las entregas contienen el fichero de puntos y el justificante de realización del curso ?
 certificados <- list.files("entregas", pattern = "certificate\\.pdf", recursive = TRUE, ignore.case = TRUE)
@@ -76,5 +76,17 @@ head(evalua_df)
 
 library(writexl)
 write_xlsx(evalua_df, "NotasRIntermedio.xlsx")
+```
+```{r}
+library(readxl)
+alumnos <- read_excel("AlumnosTD25_26.xlsx")
+names(alumnos)
+
+alumnos_notas <- merge(alumnos, evalua_df, by.x = "Apellido(s)", by.y = "apellidos", all.x = TRUE)
+
+alumnos_notas <- alumnos_notas[order(alumnos_notas$"Apellido(s)"), ]
+
+write_xlsx(alumnos_notas, "AlumnosNotas.xlsx")
+head(alumnos_notas)
 ```
 
