@@ -18,29 +18,19 @@ library(tidyr)
 ```
 
 ```{r}
-# descomprimimos el zip
-unzip("2025-26 Tractament de les dades Gr.A-T (36423)-Tarea Intermediate R(Datacamp)-3281647.zip",
-      exdir = "entregas")
+# ¿todas las entregas usaron como nombre del fichero de puntos el indicado; puntos.txt ? ¿cuántas variantes hay ?. 
+nombres_archivos <- basename(puntos)
+table(nombres_archivos)
+#Sí, hay 45 variantes
 
-# buscamos los puntos.txt
-puntos <- list.files("entregas", pattern = "puntos\\.txt", recursive = TRUE, full.names = TRUE) #Con el recursive podemos buscar dentro de todas las carpetas y subrcarpetas
+# ¿Todas las entregas contienen el fichero de puntos y el justificante de realización del curso ?
+certificados <- list.files("entregas", pattern = "certificate\\.pdf", recursive = TRUE, ignore.case = TRUE)
 
-# Ver cuántos encontramos
 length(puntos)
-```
-```{r}
-carpetas <- dirname(puntos)
-nombres_carpeta <- basename(carpetas)
+length(certificados)
 
-# extraemos la parte antes de la coma (los apellidos)
-apellidos <- sapply(strsplit(nombres_carpeta, ","), function(x) x[1])
-head(apellidos)
-```
-```{r}
-puntuaciones <- sapply(puntos, function(x) {
-  as.numeric(readLines(x, n = 1))
-})
+# No, hay 5 personas que entregaron los puntos pero no el certificado de manera correcta
 
-head(puntuaciones)
+
 ```
 
